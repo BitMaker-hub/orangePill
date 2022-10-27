@@ -34,7 +34,7 @@ const int wdtTimeout = 3000;  //time in ms to trigger the watchdog
 //Variables de control del RS485
 typedef struct {
    uint8_t currentState;       //Modo en el que operamos [1- UC, 2- Stand_Alone]
-}sNODE;
+}sPILL;
 
 /*********************************************************************************
 **                            End Of File

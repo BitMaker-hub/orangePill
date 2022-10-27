@@ -1,37 +1,27 @@
 
 #include <Adafruit_NeoPixel.h>
-#include "leds.h"
+#include "GlobalVARS.h"
+#include "gpio.h"
+#include "kxtj3-1057.h"
+#include "Wire.h"
 
-// Which pin on the Arduino is connected to the NeoPixels?
-// On a Trinket or Gemma we suggest changing this to 1:
-#define LED_PIN    38
+// Enable Serial debbug on Serial UART to see registers wrote
+#define KXTJ3_DEBUG Serial
 
-// How many NeoPixels are attached to the Arduino?
-#define LED_COUNT 3
+float   sampleRate = 6.25;  // HZ - Samples per second - 0.781, 1.563, 3.125, 6.25, 12.5, 25, 50, 100, 200, 400, 800, 1600Hz
+uint8_t accelRange = 2;     // Accelerometer range = 2, 4, 8, 16g
 
 // Declare our NeoPixel strip object:
 Adafruit_NeoPixel strip(LED_COUNT, LED_PIN, NEO_GRB + NEO_KHZ800);
-// Argument 1 = Number of pixels in NeoPixel strip
-// Argument 2 = Arduino pin number (most are valid)
-// Argument 3 = Pixel type flags, add together as needed:
-//   NEO_KHZ800  800 KHz bitstream (most NeoPixel products w/WS2812 LEDs)
-//   NEO_KHZ400  400 KHz (classic 'v1' (not v2) FLORA pixels, WS2811 drivers)
-//   NEO_GRB     Pixels are wired for GRB bitstream (most NeoPixel products)
-//   NEO_RGB     Pixels are wired for RGB bitstream (v1 FLORA pixels, not v2)
-//   NEO_RGBW    Pixels are wired for RGBW bitstream (NeoPixel RGBW products)
 
+KXTJ3 myIMU(0x0E); // Address can be 0x0E or 0x0F
 
-// setup() function -- runs once at startup --------------------------------
 
 void LedSetup() {
   strip.begin();           // INITIALIZE NeoPixel strip object (REQUIRED)
   strip.show();            // Turn OFF all pixels ASAP
   strip.setBrightness(50); // Set BRIGHTNESS to about 1/5 (max = 255)
 }
-
-
-
-
 
 // Some functions of our own for creating animated effects -----------------
 
@@ -138,3 +128,57 @@ void Ledloop() {
   rainbow(10);             // Flowing rainbow cycle along the whole strip
   theaterChaseRainbow(50); // Rainbow-enhanced theaterChase variant
 }
+
+void accSetup(){
+  Wire.begin(I2C_SDA, I2C_SCL); 
+  
+  if( myIMU.begin(sampleRate, accelRange) != 0 )
+  {
+    Serial.print("Failed to initialize IMU.\n");
+  }
+  else
+  {
+    Serial.print("IMU initialized.\n");
+  }
+  
+  // Detection threshold, movement duration and polarity
+  myIMU.intConf(123, 1, 10, HIGH);
+
+  uint8_t readData = 0;
+
+  // Get the ID:
+  myIMU.readRegister(&readData, KXTJ3_WHO_AM_I);
+  Serial.print("Who am I? 0x");
+  Serial.println(readData, HEX);
+}
+
+void AccelerometerLoop(){
+  myIMU.standby( false );
+
+  int16_t dataHighres = 0;
+
+  if( myIMU.readRegisterInt16( &dataHighres, KXTJ3_OUT_X_L ) != 0 )
+
+  Serial.print(" Acceleration X RAW = ");
+  Serial.println(dataHighres);
+
+  if( myIMU.readRegisterInt16( &dataHighres, KXTJ3_OUT_Z_L ) != 0 )
+
+  Serial.print(" Acceleration Z RAW = ");
+  Serial.println(dataHighres);
+
+  // Read accelerometer data in mg as Float
+  Serial.print(" Acceleration X float = ");
+  Serial.println( myIMU.axisAccel( X ), 4);
+
+  // Read accelerometer data in mg as Float
+  Serial.print(" Acceleration Y float = ");
+  Serial.println( myIMU.axisAccel( Y ), 4);
+
+  // Read accelerometer data in mg as Float
+  Serial.print(" Acceleration Z float = ");
+  Serial.println( myIMU.axisAccel( Z ), 4);
+
+  myIMU.standby( true );
+}
+

@@ -1,5 +1,6 @@
-#include "leds.h"
+#include "gpio.h"
 #include "hidkeyboard.h"
+#include "GlobalVARS.h"
 HIDkeyboard Keyboard;
 
 sPILL OrangePill;
@@ -15,11 +16,13 @@ void setup() {
   Serial.begin(115200);
   Keyboard.begin();
   LedSetup();
-  //USB.begin();
+  accSetup();
+
 }
 
 void loop() {
   Ledloop();
+  AccelerometerLoop();
   // read the pushbutton:
   int buttonState = digitalRead(buttonPin);
   // if the button state has changed,
@@ -38,4 +41,5 @@ void loop() {
   }
   // save the current button state for comparison next time:
   previousButtonState = buttonState;
+  delay(1000);
 }

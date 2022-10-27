@@ -1,9 +1,3 @@
-/*
- *  Functions
- *  Created on: 08/04/2020
- *      Author: Roger Colet
- */
-
 #include <Arduino.h>
 
 
