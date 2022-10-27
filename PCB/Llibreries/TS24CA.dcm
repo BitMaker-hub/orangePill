@@ -1,0 +1,9 @@
+EESchema-DOCLIB  Version 2.0
+#
+$CMP TS24CA
+D Tactile Switches SPST 4.55mm x 3.50mm 1.80mm 50mA @ 12VDC SMD
+K
+F https://datasheet.lcsc.com/lcsc/1912111437_SHOU-HAN-TS24CA_C393942.pdf
+$ENDCMP
+#
+#End Doc Library

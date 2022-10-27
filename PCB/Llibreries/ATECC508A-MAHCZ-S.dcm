@@ -1,0 +1,9 @@
+EESchema-DOCLIB  Version 2.0
+#
+$CMP ATECC508A-MAHCZ-S
+D Security ICs / Authentication ICs AWS IOT Provisioned ECC508A 10Kb - 8ld UDFN Generic SWI, 3K T&R
+K
+F http://www.mouser.com/ds/2/268/Atmel-8923S-CryptoAuth-ATECC508A-Datasheet-Summary-1065793.pdf
+$ENDCMP
+#
+#End Doc Library
