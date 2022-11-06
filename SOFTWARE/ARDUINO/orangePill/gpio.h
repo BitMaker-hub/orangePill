@@ -1,26 +1,19 @@
+/***************💊 EEPROM ***************/
+void EEPROMsetup(void);
 
-/********************** NEOPIXELS ***************/
-// Which pin on the Arduino is connected to the NeoPixels?
-// On a Trinket or Gemma we suggest changing this to 1:
-#define LED_PIN    38
-
-// How many NeoPixels are attached to the Arduino?
-#define LED_COUNT 3
+/***************💊 NEOPIXELS ***************/
 
 void LedSetup(void);
 void Ledloop(void);
+void showInitEffect(void);
+void setLedsColor(int Led1, int Led2, int Led3);
+void blinkAllLeds(uint32_t color);
 
-void showInitEffect(int wait);
-/************************************************/
-
-/********************** ACCELEROMETER ***************/
+/**************💊 ACCELEROMETER ***************/
 // Accelerometer provides different Power modes by changing output bit resolution
-#define LOW_POWER
-//#define HIGH_RESOLUTION
+void AccSetup();
+void AccelerometerRead();
 
-#define I2C_SDA 41
-#define I2C_SCL 39
+/**************💊 BUTTON ********************/
+int checkButton (void);
 
-void accSetup();
-void AccelerometerLoop();
-/************************************************/

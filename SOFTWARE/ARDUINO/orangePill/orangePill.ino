@@ -1,45 +1,34 @@
 #include "gpio.h"
-#include "hidkeyboard.h"
+#include "workflow.h"
 #include "GlobalVARS.h"
-HIDkeyboard Keyboard;
 
-sPILL OrangePill;
-
-const int buttonPin = P_BUTTON;          // input pin for pushbutton
-int previousButtonState = HIGH;   // for checking the state of a pushButton
-int counter = 0;                  // button push counter
+sPILL myPill;
 
 void setup() {
-  // make the pushButton pin an input:
-  pinMode(buttonPin, INPUT_PULLUP);
-  // initialize control over the keyboard:
-  Serial.begin(115200);
-  Keyboard.begin();
-  LedSetup();
-  accSetup();
+
+  pinMode(BUTTON_PIN, INPUT_PULLUP);            // Init pushbutton pin
+  Serial.begin(SERIAL_BAUD);                    // Init Serial port
+  EEPROMsetup();                                // Init EEPROMdata
+  LedSetup();                                   // Init neopixels leds
+  AccSetup();                                   // Init Accelerometer
+  initUSBKeyboard();                            // Init USB Keyboard emulation
 
 }
 
+
 void loop() {
-  Ledloop();
-  AccelerometerLoop();
-  // read the pushbutton:
-  int buttonState = digitalRead(buttonPin);
-  // if the button state has changed,
-  if ((buttonState != previousButtonState)
-      // and it's currently pressed:
-      && (buttonState == LOW)) {
-    // increment the button counter
-    Serial.print("pressed - ");
-    counter++;
-    // type out a message
-    String text = "Hi! You got an Orange Pill.\n Your pill is currently virgin, you need to hydrate it." + String(counter) + "times.\n";
-    Serial.println(Keyboard.sendString(text)?"OK":"FAIL");
-    /*Keyboard.sendString("You pressed the button ");
-    Keyboard.sendString(counter);
-    Keyboard.sendString(" times.\n");*/
+  showInitEffect();
+
+  while(true){
+    int buttonState = checkButton();
+
+    switch(myPill.State){
+      case STATE_VIRGIN:   doVirginState(buttonState); break;
+      case STATE_SEEDING:  doSeedingState(buttonState); break;
+      case STATE_LOCKED:   doLockedState(buttonState); break;
+      case STATE_OPENPILL: doOpenPill(buttonState); break;
+      case STATE_UNLOCKED: doUnlockedState(buttonState); break;
+    }
+    delay(10);
   }
-  // save the current button state for comparison next time:
-  previousButtonState = buttonState;
-  delay(1000);
 }

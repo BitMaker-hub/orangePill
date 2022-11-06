@@ -1,6 +1,0 @@
-(sym_lib_table
-  (lib (name "ESP32-C3FH4")(type "KiCad")(uri "C:/Users/RogerPC/Desktop/CRYPTO/BITMAKER/Projectes/EN CURSO/ORANGEPILL/PCB/Llibreries/ESP32-C3FH4.kicad_sym")(options "")(descr ""))
-  (lib (name "ESP32-S2FN4")(type "KiCad")(uri "C:/Users/RogerPC/Desktop/CRYPTO/BITMAKER/Projectes/EN CURSO/ORANGEPILL/PCB/Llibreries/ESP32-S2FN4R2.kicad_sym")(options "")(descr ""))
-  (lib (name "TS24CA")(type "KiCad")(uri "C:/Users/RogerPC/Desktop/CRYPTO/BITMAKER/Projectes/EN CURSO/ORANGEPILL/PCB/Llibreries/TS24CA.kicad_sym")(options "")(descr ""))
-  (lib (name "WS2812B-2020")(type "KiCad")(uri "C:/Users/RogerPC/Desktop/CRYPTO/BITMAKER/Projectes/EN CURSO/ORANGEPILL/PCB/Llibreries/WS2812B-2020.kicad_sym")(options "")(descr ""))
-)
