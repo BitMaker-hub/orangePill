@@ -1,4 +1,5 @@
 #include "gpio.h"
+#include "btc.h"
 #include "workflow.h"
 #include "GlobalVARS.h"
 
@@ -12,6 +13,7 @@ void setup() {
   LedSetup();                                   // Init neopixels leds
   AccSetup();                                   // Init Accelerometer
   initUSBKeyboard();                            // Init USB Keyboard emulation
+  initWallet();                                 // Init wallet data
 
 }
 

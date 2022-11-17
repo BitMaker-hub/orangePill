@@ -45,7 +45,9 @@ const int wdtTimeout = 3000;  //time in ms to trigger the watchdog
 //💊 Global vars 
 typedef struct {
    uint8_t State;           //Pill initStatus [Virgin, Locked, Unlocked]
-   int shakeCounts;         //Detect s
+   int shakeCounts;         //Detect shakes
+   String xpub;             //Current xpub address
+   String mnemonic;         //Current words
 }sPILL;
 
 /*********************************************************************************
