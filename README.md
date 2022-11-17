@@ -27,7 +27,7 @@ Posible inputs:
 - SHAKE: During seed generation or seed unlock.
 
 
-###PILL STATES
+##PILL STATES
 
 The orangePill has currently three sates.
 
@@ -35,7 +35,7 @@ VIRGIN: No seed present. Needs to generate entropy.
 LOCKED: Seed present. When you make one push you can only see xpub.
 UNLOCKED: Seed revealed. When you make one push you can see mnemonic.
 
-![image](https://github.com/BitMaker-hub/orangePill/tree/master/IMAGES/workflow.png))
+![image](https://github.com/BitMaker-hub/orangePill/tree/master/IMAGES/workflow.png)
 
 
 ## HW Specifictions
@@ -45,7 +45,7 @@ UNLOCKED: Seed revealed. When you make one push you can see mnemonic.
 - Accelerometer KXTJ3-1057
 - ATTEC608A
 
-![image](https://github.com/BitMaker-hub/orangePill/tree/master/IMAGES/hardware.gif))
+![image](https://github.com/BitMaker-hub/orangePill/tree/master/IMAGES/hardware.gif)
 
 ## Libraires
 - Main library -> <a href="https://www.arduino.cc/reference/en/libraries/ubitcoin/">uBitcoin</a>
