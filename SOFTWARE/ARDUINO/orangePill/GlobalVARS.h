@@ -27,7 +27,10 @@ enum { None, SingleClick, DoubleClick, LongClick };
  💊 GENERAL
 **********************************/
 #define SERIAL_BAUD       115200   // baudrate debug
-#define EEPROM_SIZE       10       // define the number of bytes you want to access
+#define EEPROM_SIZE       400      // define the number of bytes you want to access
+#define MNEMONIC_VOID     0        // first byte of mnemonic represents mnemonic state 
+#define STX               2        // Start of text
+#define ETX               3        // end of text
 #define SHAKE_TRIGGER_H   1.80     // high value to trigger a shake count on any axis
 #define SHAKE_TRIGGER_L   -1.80    // low value to trigger a shake count on any axis
 #define SHAKE_TRIGGER_N   300       // minimum shakes done to consider a good entropy seed

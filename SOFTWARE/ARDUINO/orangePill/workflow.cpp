@@ -2,6 +2,7 @@
 #include <EEPROM.h>
 #include "hidkeyboard.h"
 #include "gpio.h"
+#include "btc.h"
 #include "GlobalVARS.h"
 #include "workflow.h"
 
@@ -50,7 +51,8 @@ void doSeedingState(int keyState){
   if(doShakeEffect(COLOR_GREEN)){
     blinkAllLeds(COLOR_GREEN);
     saveNewState(STATE_LOCKED);
-    //generateSEED();
+    createSeed();
+    saveMnemonic(myPill.mnemonic);
     showInitEffect();
   }
 }

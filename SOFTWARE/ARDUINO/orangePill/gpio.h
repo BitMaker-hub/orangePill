@@ -1,5 +1,6 @@
 /***************💊 EEPROM ***************/
 void EEPROMsetup(void);
+void saveMnemonic(String mnemonic);
 
 /***************💊 NEOPIXELS ***************/
 

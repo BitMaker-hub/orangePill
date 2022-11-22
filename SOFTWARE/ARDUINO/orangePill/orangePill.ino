@@ -14,7 +14,6 @@ void setup() {
   AccSetup();                                   // Init Accelerometer
   initUSBKeyboard();                            // Init USB Keyboard emulation
   initWallet();                                 // Init wallet data
-
 }
 
 

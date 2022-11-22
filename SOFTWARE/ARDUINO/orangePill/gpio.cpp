@@ -24,10 +24,34 @@ void EEPROMsetup(){
   
   EEPROM.begin(EEPROM_SIZE);
   
-  /******** READ EEPROM DATA ************/
+  /********💊 READ PILL STATE ************/
   myPill.State = EEPROM.read(0);
   if(myPill.State>STATE_UNLOCKED) myPill.State = STATE_VIRGIN;
+  
+  /********💊 READ MNMONIC ************/
+  String mnemonic="";
+  if(EEPROM.read(1) == STX){
+    for(uint16_t i=2; i<400; i++){
+      uint8_t nm = EEPROM.read(i);
+      if(nm == ETX) break;
+      mnemonic = mnemonic + char(nm);
+    }
+  }
+  myPill.mnemonic = mnemonic;
+  Serial.print("Current mnemonic: "); Serial.println(mnemonic);
+  
+}
 
+void saveMnemonic(String mnemonic){
+
+  uint16_t i;
+  for(i=2; i<(mnemonic.length()+2); i++){
+    EEPROM.write(i, mnemonic[i-2]);
+  }
+  EEPROM.write(i,3);
+  EEPROM.write(1,STX);
+  delay(10);
+  EEPROM.commit();
 }
 
 /***********************💊 LED EFFECTS ******************************/
